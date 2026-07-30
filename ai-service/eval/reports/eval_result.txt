@@ -1,0 +1,25 @@
+D:\Kuliah\semester6\Proyek Data Mining\ecommerce-api-main\ecommerce-api-main\ai-service\rag\retriever.py:20: LangChainDeprecationWarning: The class `Chroma` was deprecated in LangChain 0.2.9 and will be removed in 1.0. An updated version of the class exists in the `langchain-chroma package and should be used instead. To use it run `pip install -U `langchain-chroma` and import as `from `langchain_chroma import Chroma``.
+  vectorstore = Chroma(
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event CollectionQueryEvent: capture() takes 1 positional argument but 3 were given
+Number of requested results 4 is greater than number of elements in index 2, updating n_results = 2
+Failed to send telemetry event ClientStartEvent: capture() takes 1 positional argument but 3 were given
+Failed to send telemetry event ClientCreateCollectionEvent: capture() takes 1 positional argument but 3 were given
+Number of requested results 4 is greater than number of elements in index 2, updating n_results = 2
+=== Hasil Evaluasi Model ===
+
+Pertanyaan       : Berapa lama saya bisa retur barang?
+Jawaban          : 7 hari sejak diterima, dengan kondisi masih tersegel.
+Effectiveness    : 1.00 (0-1, makin tinggi makin baik)
+Explainability   : Ya (ada dokumen sumber?)
+Risiko Halusinasi: Rendah
+------------------------------------------------------------
+Pertanyaan       : Berapa estimasi pengiriman ke luar Jawa?
+Jawaban          : 5-7 hari
+Effectiveness    : 0.50 (0-1, makin tinggi makin baik)
+Explainability   : Ya (ada dokumen sumber?)
+Risiko Halusinasi: Rendah
+------------------------------------------------------------
+
+Rata-rata Effectiveness: 0.75
