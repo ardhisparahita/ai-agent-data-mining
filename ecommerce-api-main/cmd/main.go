@@ -15,6 +15,7 @@ import (
 	"github.com/ardhisparahita/ecommerce-api/pkg/database"
 	"github.com/ardhisparahita/ecommerce-api/pkg/utils"
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/fiber/v2/middleware/cors"
 	"gorm.io/gorm"
 )
 
@@ -101,6 +102,17 @@ func main() {
 		ErrorHandler: utils.ErrorHandler,
 	})
 
+	frontendURL := os.Getenv("FRONTEND_URL")
+	if frontendURL == "" {
+		frontendURL = "http://localhost:3000" // Fallback jika dijalankan lokal
+	}
+
+	app.Use(cors.New(cors.Config{
+		AllowOrigins: frontendURL,
+		AllowHeaders: "Origin, Content-Type, Accept, Authorization",
+		AllowMethods: "GET, POST, PUT, DELETE, OPTIONS",
+	}))
+
 	userRepo := repository.NewUserRepository(db)
 	categoryRepo := repository.NewCategoryRepository(db)
 	productRepo := repository.NewProductRepository(db)
@@ -154,9 +166,13 @@ func main() {
 		orderHandler,
 	)
 
-	port := config.Get("APP_PORT")
+	port := os.Getenv("PORT")
 	if port == "" {
-		port = "3000"
+		// Fallback ke config lokal Anda
+		port = config.Get("APP_PORT")
+		if port == "" {
+			port = "3000"
+		}
 	}
 
 	log.Printf("Server running on port %s", port)
