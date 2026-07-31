@@ -18,6 +18,12 @@ func Connect() (*gorm.DB, error) {
 		config.Get("DB_NAME"),
 	)
 
+	// Cloud MySQL providers (Aiven, PlanetScale, dll) mewajibkan koneksi TLS.
+	// Set DB_SSL=true di environment variable untuk mengaktifkannya.
+	if config.Get("DB_SSL") == "true" {
+		dsn += "&tls=skip-verify"
+	}
+
 	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
 		return nil, err
