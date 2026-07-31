@@ -1,14 +1,11 @@
-"""
-Model Evaluator — mengukur performa RAG/multi-agent secara manual
-(tanpa Ragas, karena Ragas defaultnya butuh OpenAI — kita pakai evaluasi
-manual berbasis rubric agar tetap gratis dan tidak error versi).
-
-Mengukur:
-- Effectiveness: apakah jawaban mengandung informasi kunci dari ground truth
-- Explainability: apakah source dokumen ikut ditampilkan (retrieval transparan)
-- Hallucination (kasar): apakah jawaban menyebut hal yang TIDAK ada di source
-"""
 from rag.retriever import answer_with_rag
+import time
+
+def evaluate_efficiency(question: str, collection_name: str = "faq") -> float:
+    """Efficiency: waktu respons dalam detik (makin kecil makin baik)."""
+    start = time.time()
+    answer_with_rag(question, collection_name)
+    return round(time.time() - start, 2)
 
 
 TEST_CASES = [
@@ -43,7 +40,8 @@ def evaluate_hallucination_risk(answer: str, source_documents: list) -> bool:
     unsupported = [w for w in answer_words if w not in context_text]
     # Toleransi: kalau >50% kata "penting" tidak ada di konteks, tandai berisiko halusinasi
     return len(unsupported) > 0 and (len(unsupported) / max(len(answer_words), 1)) > 0.5
-
+efficiency = evaluate_efficiency(case["question"])
+print(f"Efficiency (waktu respons): {efficiency} detik")
 
 def run_evaluation():
     results = []
