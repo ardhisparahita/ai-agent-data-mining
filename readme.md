@@ -344,6 +344,21 @@ The response is returned in the reverse direction until it reaches the client.
 
 ---
 
+## 🏢 Enterprise Business Case & AI Multi-Agent Layer
+
+This project extends beyond a basic e-commerce backend by addressing real problems faced by different divisions in an e-commerce enterprise — **Sales, Inventory, Customer Support, and Finance**. Each division's pain point is solved by a dedicated AI agent that queries this API as its data source.
+
+📄 Full write-up: [`docs/enterprise-case-study.md`](docs/enterprise-case-study.md)
+
+| Division          | Problem                                           | Agent                      |
+| ----------------- | ------------------------------------------------- | -------------------------- |
+| Sales & Marketing | Manual sales trend analysis                       | `SalesAgent`               |
+| Inventory         | Slow stock monitoring & restock decisions         | `InventoryAgent`           |
+| Customer Support  | Repetitive customer questions (returns, shipping) | `SupportAgent` (RAG-based) |
+| Finance           | Manual payment reconciliation                     | _(planned)_ `FinanceAgent` |
+
+The AI layer lives in a separate service — see [`ai-service/`](ai-service/) — built with LangChain, ChromaDB, and OpenAI, and communicates with this Go/Fiber API over HTTP.
+
 # 📁 Project Structure
 
 The project follows the **Clean Architecture** pattern by separating presentation, business logic, data access, and infrastructure into different layers.
@@ -1243,4 +1258,3 @@ Contributions, feedback, and discussions are always welcome.
 Made with ❤️ using **Go**, **Fiber**, and **Clean Architecture**
 
 </div>
-
